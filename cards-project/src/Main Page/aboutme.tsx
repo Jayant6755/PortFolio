@@ -13,7 +13,7 @@ const About = memo(() => {
           {/* Image side */}
           <div className="relative border-2 border-white/80 rounded-2xl p-4 lg:p-6 xl:p-8 max-w-md mx-auto lg:mx-0 mb-12 lg:mb-0">
             <img 
-            src="\public\Pictures\064b9b5b-a18f-4c85-90f8-1b96361f4fdc.jpeg" 
+            src="\Pictures\064b9b5b-a18f-4c85-90f8-1b96361f4fdc.jpeg" 
             alt="My Image"
             className="w-full h-full object-cover rounded-xl"
             loading="lazy"
