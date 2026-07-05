@@ -1,18 +1,25 @@
+
+import {SiReact, SiNextdotjs, SiNodedotjs, SiMongodb, SiFigma, SiBlender, SiGithub } from "@icons-pack/react-simple-icons";
+import { Network, Code, Layout } from "lucide-react";
 const Skills = () => {
   const skillCategories = [
     {
-      title: "Development",
-      skills: ["React", "TypeScript", "Next.js", "Node.js", "REST APIs", "Express", "MongoDB"],
-    },
-    {
       title: "Design",
-      skills: ["Figma", "UI/UX Design", "Prototyping", "Branding"],
+      skills: ["Figma", "UI/UX Design"],
+      icons: [<SiFigma className="w-5 h-5" />, <Layout className="w-5 h-5" />],
+    },
+      {
+      title: "Development",
+      skills: ["React", "Next.js", "Node.js", "REST APIs", "MongoDB"],
+      icons: [<SiReact className="w-5 h-5" />, <SiNextdotjs className="w-5 h-5" />, <SiNodedotjs className="w-5 h-5" />,<Network className="w-5 h-5" />, <SiMongodb className="w-5 h-5" />],
     },
     {
       title: "Tools & Methods",
-      skills: ["Git/GitHub", "VS Code", "Blender","Power BI", "Performance Optimization"],
+      skills: ["Git/GitHub", "VS Code", "Blender"],
+      icons: [<SiGithub className="w-5 h-5" />, <Code className="w-5 h-5" />, <SiBlender className="w-5 h-5" />], 
     },
   ];
+
 
   return (
     <section id="skills" className="py-32 relative bg-[hsl(20_14%_12%)] ">
@@ -30,7 +37,7 @@ const Skills = () => {
           {skillCategories.map((category, index) => (
             <div
               key={index}
-              className="bg-card border border-border rounded-2xl p-8 hover:border-accent/30 transition-colors duration-300"
+              className="bg-card border border-border rounded-2xl p-8 hover:scale-105 transition-transform duration-300 hover:shadow-[0_25px_60px_-15px_rgba(212,175,85,0.2)] "
             >
               <h3 className="font-display text-xl font-medium mb-6 text-accent">
                 {category.title}
@@ -41,7 +48,7 @@ const Skills = () => {
                     key={skillIndex}
                     className="flex items-center gap-3 text-[hsl(40_10%_55%)] "
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                    {category.icons[skillIndex]}
                     {skill}
                   </li>
                 ))}

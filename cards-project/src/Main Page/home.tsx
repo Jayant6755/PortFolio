@@ -3,10 +3,26 @@ import { ArrowDown } from "lucide-react";
 import {motion} from "framer-motion";
 
 
+const containerVariants = {
+  hidden: { opacity: 0},
+
+  visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
+};
+
 const Hero = memo(() => {
    
   return (
     <section className="min-h-screen flex flex-col justify-center relative  ">
+
+      <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
+      style={{
+        backgroundImage: `
+        linear-gradient(to right, white 1px, transparent 1px),
+        linear-gradient(to bottom, white 1px, transparent 1px)
+      `,
+        backgroundSize: '40px 40px',
+      }}
+      />
       {/* Ambient background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 -right-32 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
@@ -14,9 +30,9 @@ const Hero = memo(() => {
       </div>
 
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
       <div className="container mx-auto px-6 pt-32 pb-20 relative z-10 ">
-        <div className="max-w-4xl ">
+        <div className="max-w-4xl ml-5 ">
           <p className=" font-sans text-sm md:text-lg tracking-widest uppercase mb-6 text-[hsl(40_80%_55%)] ">
             Creative Developer & Designer
           </p>
@@ -35,18 +51,18 @@ const Hero = memo(() => {
             functional, and user-centered digital experiences.
           </p>
 
-          <div className="flex flex-col  items-start justify-center gap-4 text-white md:text-lg">
+          <div className="flex flex-row items-start  gap-4 text-white lg:md:text-lg ">
             <a
               href="#work"
               aria-label="View my projects"
-              className="inline-flex  items-center gap-2 px-7 py-4 bg-gray-500 text-background font-medium rounded-full hover:scale-105 transition-transform duration-300"
+              className="inline-flex p-4 items-center gap-2 lg:md:px-7 lg:md:py-4 bg-[hsl(40_70%_55%)] text-background lg:md:font-medium rounded-full hover:scale-105 transition-transform duration-300 "
             >
               View My Work
             </a>
             <a
               href="#about"
               aria-label="Learn more about me"
-              className="inline-flex items-center gap-2 px-11 py-4 border border-1 text-foreground font-medium rounded-full hover:bg-secondary transition-colors duration-300"
+              className="inline-flex items-center p-4 gap-2 lg:md:px-11 lg:md:py-4 border-[hsl(40_70%_55%)] border-1 text-[hsl(40_70%_55%)] font-medium rounded-full hover:bg-secondary transition-colors duration-300"
             >
               About Me
             </a>

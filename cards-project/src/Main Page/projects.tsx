@@ -1,94 +1,171 @@
-
-import {  ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
+import * as React from "react";
+import Autoplay from "embla-carousel-autoplay";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const Projects = () => {
+  const [api, setApi] = React.useState<any>(null);
+  const [current, setCurrent] = React.useState(0);
+
   const projects = [
     {
-      title: "Frameo – Image Platform with VS code Extension",
+      title: "Frameo",
+      subtitle: "Image Platform with VS Code Extension",
       category: "Web Development",
-      description: "Frameo is a image-sharing platform inspired by Unsplash, built to help designers and developers find high-quality photos efficiently",
+      description: "An image-sharing platform inspired by Unsplash, built to help designers and developers source resources directly within their IDE ecosystem.",
       images: "/Pictures/shubham-dhage-3JjnYjHCK0c-unsplash.jpg",
       github: "https://github.com/Jayant6755/Frameo",
       sourcelink: "https://frameo-three.vercel.app/",
-  
     },
     {
-      title: "Tuto – Interactive Tutorial Platform for Students",
-      category: "E-Learning",
-      description: "An interactive tutorial platform that combines full-stack development with engaging educational content for students.",
+      title: "Tuto",
+      subtitle: "Interactive E-Learning Platform",
+      category: "E-Learning Infrastructure",
+      description: "An interactive educational system combining real-time rich text sync with engaging multi-tier modular learning workflows.",
       images: "/Pictures/5de63102937d14a8350c852d3bf689be.jpg",
       github: "https://github.com/Jayant6755/Tuto",
       sourcelink: "http://localhost:5173/not-found",
     },
-     {
-      title: "MovieGenie – AI-Powered Movie Recommendation App",
-      category: "🎬 AI-Powered Movie Recommendation System",
-      description: "An AI-powered movie recommendation app that suggests personalized movie choices based on user preferences and viewing history.",
+    {
+      title: "MovieGenie",
+      subtitle: "AI-Powered Recommendation Engine",
+      category: "Artificial Intelligence",
+      description: "A machine-learning recommendation model that maps user browsing semantics and historically liked matrices to render clean personal watch queues.",
       images: "/Pictures/unsplash-wMkaMXTJjlQ.jpg",
       github: "https://github.com/Jayant6755/MovieRecommendation",
       sourcelink: "https://movie-recommendation-navy-sigma.vercel.app/",
     }
- 
   ];
 
+  const autoplay = React.useRef(Autoplay({
+    delay: 4000,
+    stopOnInteraction: false,
+    stopOnMouseEnter: false,
+    
+  }));
+
+  React.useEffect(() => {
+    if (!api) return;
+    setCurrent(api.selectedScrollSnap());
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
   return (
-    <section id="work" className="py-32 relative">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div>
-            <p className="text-accent text-[hsl(40_60%_55%)] font-sans text-lg tracking-widest uppercase mb-4">
-              Selected Work
-            </p>
-            <h2 className="font-serif text-white text-4xl md:text-7xl font-medium leading-tight">
-              Featured
-              <br />
-              <span className="text-[hsl(40_10%_55%)]">Projects</span>
-            </h2>
-          </div>
+    <section id="work" className="py-32 relative bg-black text-white overflow-hidden select-none">
+      
+      {/* Golden Ambient Depth Light behind the slider deck */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[hsl(40_80%_55%)]/5 rounded-full blur-[160px] pointer-events-none z-0" />
+
+      <div className="container mx-auto px-6 relative z-10">
+        
+        {/* Section Header */}
+        <div className="max-w-4xl mb-24">
+          <p className="text-[hsl(40_80%_55%)] font-sans text-xs tracking-[0.2.5em] uppercase mb-4 font-semibold">
+            Selected Work
+          </p>
+          <h2 className="font-serif text-white text-5xl md:text-7xl font-light leading-tight tracking-tight">
+            Featured <br />
+            <span className="text-[hsl(40_80%_55%)] font-serif">Projects</span>
+          </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="group relative block overflow-hidden rounded-2xl bg-[hsl(20_14%_12%)] overflow-hidden border-1 border-white/50 hover:scale-101 transition-all duration-400 "
-            >
-              
-              <div
-                className={`aspect-[16/10] relative overflow-hidden overflow-hidden`}
-              >
-                <img 
-                src= {project.images}
-                alt= {project.title} 
-                className="object-cover w-full h-full "
-                />
-              </div>
+        {/* Carousel Slider Interface Container */}
+        <div className="w-full relative px-4 md:px-20">
+          <Carousel
+            setApi={setApi}
+            plugins={[autoplay.current]}
+            opts={{
+              align: "center", 
+              loop: true, 
+              duration: 80,
+            }}
+            className="w-full overflow-visible"
+          >
+            <CarouselContent className="-ml-6 md:-ml-12 items-center py-12 ">
+              {projects.map((project, index) => {
+                const isActive = index === current;
 
-              {/* Project Info */}
-              <div className="p-8 font-serif">
-                <p className="text-[hsl(40_60%_55%)] font-sans text-sm md:text-lg mb-2">{project.category}</p>
-                <h3 className="text-2xl md:text-4xl font-medium mb-3 group-hover:text-accent transition-colors text-white/80">
-                  {project.title}
-                </h3>
-                <p className="text-[hsl(40_30%_55%)] text-sm md:text-lg font-sans">
-                  {project.description}
-                </p>
-                <div className="w-90 flex flex-row mt-4 lg:gap-4 py-2 md:lg:text-lg text-sm"> 
-                  <a href={project.github} className="w-full">
-                    <button className="flex cursor-pointer items-center gap-2 border-white/50 hover:bg-[hsl(40_90%_55%)] hover:text-black border-1 bg-black rounded-lg lg:rounded-xl text-white/80 transition-colors font-sans font-medium lg:p-3 p-2 lg:w-full">
-                      <Github className="lg:w-6 lg:h-6 w-4 h-4"/> Source Code
-                    </button>
-                  </a>
-                  <a href={project.sourcelink} className="w-full lg:mr-0 mr-20 ">
-                    <button className="flex cursor-pointer items-center justify-center rounded-lg lg:rounded-xl gap-2 font-sans lg:w-full bg-[hsl(40_90%_55%)] text-black font-medium lg:p-3 p-2">
-                      <ExternalLink className="lg:w-6 lg:h-6 w-4 h-4 "/> Live Demo 
-                    </button>
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
+                return (
+                  <CarouselItem 
+                    key={index} 
+                    className="pl-6 md:pl-12 basis-full md:basis-[70%] lg:basis-[55%] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                   
+                  >
+                    
+                    <div 
+                      className={`relative rounded-3xl border-2 hover:border-[hsl(40_50%_55%)] bg-[hsl(20_14%_9%)] border lg:shadow-[10px_25px_60px_25px_rgba(212,175,85,0.2)]  transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden
+                        ${isActive 
+                          ? "scale-105 md:scale-110 border-neutral-800 z-20 shadow-[0_25px_60px_-15px_rgba(212,175,55,0.08)] opacity-100" 
+                          : "scale-90 border-transparent z-10 opacity-30 blur-[2px] pointer-events-none"
+                        }`}
+                    >
+                      <div className="grid grid-cols-1 lg:grid-cols-12">
+                        
+                        {/* Media Display Block (Left/Top) */}
+                        <div className="lg:col-span-6 aspect-[16/11] lg:aspect-auto relative overflow-hidden bg-neutral-950">
+                          <img 
+                            src={project.images}
+                            alt={project.title} 
+                            className={`object-cover w-full h-full transition-all duration-1000 ease-out
+                              ${isActive ? "grayscale-0 scale-100 contrast-105" : "grayscale"}`}
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                        </div>
+
+                        {/* Text and Actions Meta Section (Right/Bottom) */}
+                        <div className="lg:col-span-6 p-6 md:p-8 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-neutral-900 bg-gradient-to-br from-neutral-950/40 to-transparent">
+                          <div>
+                            <span className="text-[hsl(40_80%_55%)] font-sans text-[10px] tracking-widest uppercase font-semibold block mb-2">
+                              {project.category}
+                            </span>
+                            <h3 className="text-2xl font-sans font-medium text-white tracking-tight mb-1">
+                              {project.title}
+                            </h3>
+                            <p className="text-gray-500 font-sans text-xs font-medium mb-4">
+                              {project.subtitle}
+                            </p>
+                            <p className="text-gray-400 text-sm font-sans font-light leading-relaxed mb-6">
+                              {project.description}
+                            </p>
+                          </div>
+
+                          {/* Split CTA Actions UI */}
+                          <div className="flex flex-row gap-3 font-sans text-xs font-semibold"> 
+                            <a href={project.github} target="_blank" rel="noreferrer" className="w-full">
+                              <button className="w-full flex items-center justify-center gap-2 border border-neutral-800 bg-neutral-950 hover:bg-white hover:text-black rounded-xl text-gray-300 transition-all duration-300 py-3 cursor-pointer">
+                                <Github className="w-3.5 h-3.5"/> Code
+                              </button>
+                            </a>
+                            <a href={project.sourcelink} target="_blank" rel="noreferrer" className="w-full">
+                              <button className="w-full flex items-center justify-center gap-2 rounded-xl bg-[hsl(40_80%_55%)] text-black hover:bg-white transition-all duration-300 py-3 cursor-pointer">
+                                <ExternalLink className="w-3.5 h-3.5"/> Live Demo
+                              </button>
+                            </a>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+            
+            {/* Custom Circular Arrows Styled Specifically for Dark Minimal Backgrounds */}
+            <CarouselPrevious className="hidden md:flex border-neutral-800 bg-neutral-950 text-white hover:bg-white hover:text-black w-12 h-12 -left-16" />
+            <CarouselNext className="hidden md:flex border-neutral-800 bg-neutral-950 text-white hover:bg-white hover:text-black w-12 h-12 -right-16" />
+          </Carousel>
         </div>
+
       </div>
     </section>
   );

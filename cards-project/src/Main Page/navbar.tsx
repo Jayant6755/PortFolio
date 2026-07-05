@@ -31,7 +31,7 @@ const Navigation = () => {
       <div className="container mx-auto px-6 py-5 flex items-center justify-between">
         <a
           href="#"
-          className="font-serif text-xl font-semibold tracking-tight hover:text-accent text-white md:text-xl transition-colors"
+          className="ml-5 font-serif text-xl font-semibold tracking-tight hover:text-accent text-white md:text-xl transition-colors"
         >
           Portfolio
         </a>
