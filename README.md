@@ -70,10 +70,4 @@ npm run preview
 
 Contributions are welcome. Open an issue or submit a pull request describing changes.
 
-## License
 
-This project is provided as-is. Add a license file if you want to specify reuse terms.
-
----
-
-Made with ♥ — enjoy building your portfolio.
